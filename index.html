@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Meet Clone</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://img.icons8.com/?size=100&id=pE97I4t7Il9M&format=png&color=000000"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "meet-gray": "#202124",
+              "meet-dark": "#131314",
+              "meet-green": "#00ac47",
+              "meet-light-gray": "#3c4043",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .participant-box {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.2s ease;
+      }
+      .participant-box:hover {
+        transform: scale(1.02);
+      }
+      .participant-name {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 8px;
+        font-size: 12px;
+      }
+
+      .control-btn {
+        transition: all 0.2s ease;
+      }
+      .control-btn:hover {
+        background-color: #4b5563 !important;
+        transform: scale(1.05);
+      }
+      .mic-active {
+        color: #22c55e;
+      }
+      .video-active {
+        color: #22c55e;
+      }
+      .pulse-animation {
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(234, 88, 12, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(234, 88, 12, 0);
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-meet-gray text-white h-screen flex flex-col overflow-hidden">
+    <!-- Top Bar -->
+    <div class="flex justify-between items-center px-4 py-2 bg-meet-gray mt-2">
+      <div class="flex space-x-2 items-center">
+        <img
+          src="https://img.icons8.com/?size=100&id=aGNmrWwfVBIS&format=png&color=000000"
+          alt=""
+          class="w-11 h-11"
+        />
+      </div>
+
+      <div class="flex space-x-3 rounded-full bg-[#567ff6] p-3">
+        <i class="fas fa-pencil text-black"></i>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4 p-4 overflow-auto">
+      <!-- Large speaker view -->
+      <div
+        class="md:col-span-2 bg-green-500 h-full col-span-6 rounded-lg border-4 border-green-200 relative participant-box flex items-center justify-center"
+      >
+        <h2
+          class="border-green-300 text-5xl text-gray-100 bg-green-400 rounded-full w-24 h-24 flex items-center justify-center"
+        >
+          R
+        </h2>
+
+        <div
+          class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300"
+        >
+          <span
+            class="bg-gray-400 opacity-50 p-3 rounded-full cursor-pointer flex space-x-4"
+          >
+            <i class="fas fa-microphone text-white"></i>
+            <i class="fas fa-video text-white"></i>
+          </span>
+        </div>
+
+        <!-- Participant Name -->
+        <div
+          class="participant-name flex justify-between items-center absolute bottom-2 left-2 text-white"
+        >
+          <span class="font-medium">REGex Software</span>
+        </div>
+      </div>
+
+      <!-- Other participants -->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Participant P -->
+        <div
+          class="bg-gradient-to-br from-blue-800 to-blue-700 rounded-xl flex items-center justify-center relative participant-box"
+        >
+          <h2
+            class="text-4xl font-bold text-white bg-blue-500 rounded-full w-20 h-20 flex items-center justify-center"
+          >
+            P
+          </h2>
+
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 space-x-3"
+          >
+            <span
+              class="bg-gray-400 opacity-50 p-3 rounded-full cursor-pointer ms-4"
+            >
+              <i class="fas fa-microphone text-white mr-6"></i>
+              <i class="fas fa-video text-white"></i>
+            </span>
+          </div>
+
+          <!-- Participant Name -->
+          <div class="participant-name flex justify-between items-center">
+            <span>Pragya Kushwaha</span>
+          </div>
+        </div>
+
+        <!-- Participant G -->
+        <div
+          class="bg-gradient-to-br from-red-800 to-red-700 rounded-xl flex items-center justify-center relative participant-box"
+        >
+          <h2
+            class="text-4xl font-bold text-white bg-red-500 rounded-full w-20 h-20 flex items-center justify-center"
+          >
+            G
+          </h2>
+
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 space-x-3"
+          >
+            <span
+              class="bg-gray-400 opacity-50 p-3 rounded-full cursor-pointer ms-4"
+            >
+              <i class="fas fa-microphone text-white mr-6"></i>
+              <i class="fas fa-video text-white"></i>
+            </span>
+          </div>
+
+          <!-- Participant Name -->
+          <div class="participant-name flex justify-between items-center">
+            <span>Gaurav Sharma</span>
+          </div>
+        </div>
+
+        <!-- Participant A -->
+        <div
+          class="bg-gradient-to-br from-purple-800 to-purple-700 rounded-xl flex items-center justify-center relative participant-box"
+        >
+          <h2
+            class="text-4xl font-bold text-white bg-purple-500 rounded-full w-20 h-20 flex items-center justify-center"
+          >
+            A
+          </h2>
+
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 space-x-3"
+          >
+            <span
+              class="bg-gray-400 opacity-50 p-3 rounded-full cursor-pointer ms-4"
+            >
+              <i class="fas fa-microphone text-white mr-6"></i>
+              <i class="fas fa-video text-white"></i>
+            </span>
+          </div>
+
+          <!-- Participant Name -->
+          <div class="participant-name flex justify-between items-center">
+            <span>Aman Sharma</span>
+          </div>
+        </div>
+
+        <!-- Participant J -->
+        <div
+          class="bg-gradient-to-br from-yellow-800 to-yellow-700 rounded-xl flex items-center justify-center relative participant-box"
+        >
+          <h2
+            class="text-4xl font-bold text-white bg-yellow-500 rounded-full w-20 h-20 flex items-center justify-center"
+          >
+            J
+          </h2>
+
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 space-x-3"
+          >
+            <span
+              class="bg-gray-400 opacity-50 p-3 rounded-full cursor-pointer ms-4"
+            >
+              <i class="fas fa-microphone text-white mr-6"></i>
+              <i class="fas fa-video text-white"></i>
+            </span>
+          </div>
+
+          <!-- Participant Name -->
+          <div class="participant-name flex justify-between items-center">
+            <span>Jatin Soni</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div
+      class="flex flex-col md:flex-row justify-between items-center px-6 py-3 bg-meet-"
+    >
+      <div class="hidden md:flex space-x-2 text-sm text-white mb-2 md:mb-0">
+        <span>4:20 PM</span>
+        <span>|</span>
+        <span class="flex items-center">
+          <span class="mr-1">osx-hjeu-gfq</span>
+          <button class="text-xs ml-1 text-blue-400">
+            <i class="fas fa-copy"></i>
+          </button>
+        </span>
+      </div>
+
+      <div class="flex space-x-2 md:space-x-3">
+        <div>
+          <button class="control-btn p-3 rounded-xl mic-active bg-[#601410]">
+            <i class="fas fa-angle-up text-[#601410]"></i>
+            <i class="fas fa-microphone bg-[#f9dedc]"></i>
+          </button>
+        </div>
+
+        <button
+          class="control-btn bg-meet-light-gray p-3 rounded-full video-active"
+        >
+          <i class="fas fa-video"></i>
+        </button>
+        <button class="control-btn bg-meet-light-gray p-3 rounded-full">
+          <i class="fas fa-desktop"></i>
+        </button>
+        <button class="control-btn bg-meet-light-gray p-3 rounded-full">
+          <i class="far fa-smile"></i>
+        </button>
+        <button class="control-btn bg-meet-light-gray p-3 rounded-full">
+          <i class="fa-regular fa-closed-captioning"></i>
+        </button>
+        <button class="control-btn bg-meet-light-gray p-3 rounded-full">
+          <i class="fas fa-hand-paper"></i>
+        </button>
+        <button
+          class="hover:bg-gray-100 control-btn bg-meet-light-gray p-3 rounded-full"
+        >
+          <i class="fas fa-ellipsis-v text-gray-600 invert"></i>
+        </button>
+        <button class="control-btn bg-red-600 rounded-full hover:bg-red-700">
+          <i class="fas fa-phone-slash px-7"></i>
+        </button>
+      </div>
+
+      <div class="flex space-x-2 md:space-x-3 mt-2 md:mt-0">
+        <button class="text-gray-400 text-base">
+          <i class="fas fa-circle-info control-btn p-3 rounded-full"></i>
+        </button>
+        <button class="control-btn p-3 rounded-full">
+          <i class="fa-solid fa-user-group"></i>
+          <sup class="bg-gray-400 rounded p-1">5</sup>
+        </button>
+        <button class="control-btn p-3 rounded-full">
+          <i class="fas fa-comment-dots"></i>
+        </button>
+        <button
+          class="control-btn p-3 rounded-full invert"
+          aria-label="Google Apps"
+        >
+          <img
+            src="https://ssl.gstatic.com/gb/images/bar/al-icon.png"
+            alt="app icon"
+            class="w-6 h-6"
+            aria-hidden="true"
+          />
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
